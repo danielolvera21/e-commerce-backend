@@ -39,24 +39,29 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
-    .then(dbCategoryData => res.json(dbCategoryData))
+    .then((dbCategoryData) => {
+      if (!dbCategoryData) {
+        res.status(404).json({ message: 'No Category found with this ID' });
+        return;
+      }
+      res.json(dbCategoryData);
+    })
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
-    })
-
+    });
 });
 
-router.post('/', (req, res) => {
-  // create a new category
-});
+// router.post('/', (req, res) => {
+//   // create a new category
+// });
 
-router.put('/:id', (req, res) => {
-  // update a category by its `id` value
-});
+// router.put('/:id', (req, res) => {
+//   // update a category by its `id` value
+// });
 
-router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
-});
+// router.delete('/:id', (req, res) => {
+//   // delete a category by its `id` value
+// });
 
 module.exports = router;
